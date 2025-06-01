@@ -1,7 +1,8 @@
-package com.eatdel.eattoplan
+package com.eatdel.eattoplan.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.eatdel.eattoplan.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
