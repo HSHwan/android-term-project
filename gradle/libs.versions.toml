@@ -10,7 +10,7 @@ material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 play-services-auth = "21.3.0"
-firebase-auth = "23.2.1"
+firebase-auth = "22.3.1"
 datastore = "1.1.7"
 google-services = "4.4.2"
 
