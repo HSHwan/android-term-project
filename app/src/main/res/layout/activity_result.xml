@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/result_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <!-- 분석된 음식 이름 텍스트뷰 -->
+    <TextView
+        android:id="@+id/tvFoodResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="분석 중..."
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 맛집 지도 보기 버튼 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnViewMap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="맛집 지도 보기"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tvFoodResult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 저장하기 버튼 (즐겨찾기나 계획 저장 등) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="저장하기"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnViewMap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 메인으로 돌아가기 버튼 새로 추가 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBackMain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="메인으로 돌아가기"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnSaveResult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
