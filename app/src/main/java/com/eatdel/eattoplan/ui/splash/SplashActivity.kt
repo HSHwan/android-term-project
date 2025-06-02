@@ -1,4 +1,4 @@
- package com.eatdel.eattoplan.ui.splash
+package com.eatdel.eattoplan.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
