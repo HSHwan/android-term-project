@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 즐겨찾기(Bookmark) 메뉴 -->
+    <item
+        android:id="@+id/nav_bookmark"
+        android:title="즐겨찾기"
+        android:icon="@drawable/ic_bookmark" />
+
+    <!-- 저장된 계획(List) 메뉴 -->
+    <item
+        android:id="@+id/nav_saved"
+        android:title="저장된 계획"
+        android:icon="@drawable/ic_saved" />
+
+</menu>
