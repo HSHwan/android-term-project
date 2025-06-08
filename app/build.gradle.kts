@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.services)
+
+    //id('com.google.gms.google-services')
 }
 
 android {
@@ -42,7 +44,7 @@ android {
 }
 
 dependencies {
-    implementation ("com.google.android.gms:play-services-maps:16.1.0")
+    implementation ("com.google.android.gms:play-services-maps:19.2.0")
     //implementation("com.google.android.gms:play-services:12.0.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -56,8 +58,11 @@ dependencies {
     implementation(libs.tensorflow.lite)
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.lite.metadata)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
+    implementation("com.google.firebase:firebase-analytics")
 //    implementation(libs.play.services)
 }

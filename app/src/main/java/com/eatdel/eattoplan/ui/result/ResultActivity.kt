@@ -1,49 +1,55 @@
+// app/src/main/java/com/eatdel/eattoplan/ui/result/ResultActivity.kt
 package com.eatdel.eattoplan.ui.result
 
-import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.eatdel.eattoplan.ui.map.MapActivity
+import com.eatdel.eattoplan.R
+import com.eatdel.eattoplan.data.Plan
 import com.eatdel.eattoplan.databinding.ActivityResultBinding
-import com.eatdel.eattoplan.ui.main.MainActivity
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
-    private var analyzedFoodName: String? = null
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1) 인텐트로부터 분석된 결과(음식 이름) 수신
-        analyzedFoodName = intent.getStringExtra("foodName") ?: "알 수 없는 음식"
+        // 예시: 인텐트로부터 받아온 값
+        val uid             = intent.getLongExtra("place_id", 0L)
+        val title           = intent.getStringExtra("title") ?: ""
+        val restaurantName  = intent.getStringExtra("restaurant_name") ?: ""
+        val placeId         = intent.getLongExtra("place_id", 0L)
+        val meetDate        = intent.getStringExtra("meet_date") ?: ""
+        val contactInfo     = intent.getStringExtra("contact_info") ?: ""
 
-        // 2) 텍스트뷰에 결과 표시
-        binding.tvFoodResult.text = "이 음식은 \"$analyzedFoodName\"(으)로 분석되었습니다."
+        // 화면에 일단 보여주기
+        binding.tvFoodResult.text = "제목: $title\n음식점: $restaurantName\n모임일: $meetDate\n연락처: $contactInfo"
 
-        // 3) 맛집 지도 보기 버튼 클릭
-        binding.btnViewMap.setOnClickListener {
-            val intent = Intent(this, MapActivity::class.java)
-            intent.putExtra("foodName", analyzedFoodName)
-            startActivity(intent)
-        }
-
-        // 4) 저장하기 버튼 (즐겨찾기나 계획 저장 등)
         binding.btnSaveResult.setOnClickListener {
-            // TODO: Room DB나 내부 DB에 결과 저장 로직 구현
-            // 예: Toast.makeText(this, "\"$analyzedFoodName\" 저장됨", Toast.LENGTH_SHORT).show()
-        }
+            val plan = Plan(
+                uid             = uid,
+                title           = title,
+                restaurant_name = restaurantName,
+                place_id        = placeId,
+                meet_date       = meetDate,
+                contact_info    = contactInfo
+            )
 
-        // 5) 메인으로 돌아가기 버튼 클릭 시 MainActivity로 이동
-        binding.btnBackMain.setOnClickListener {
-            // 현재 스택에서 ResultActivity를 제거하고 MainActivity로 돌아갑니다.
-            val intent = Intent(this, MainActivity::class.java)
-            // 필요 시 플래그를 추가하여 기존 스택을 깨끗하게 할 수 있습니다.
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
-            finish() // 혹은 finish()만 해도 바로 뒤로가기 처리됨
+            db.collection("foodplan")
+                .add(plan)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "저장 성공!", Toast.LENGTH_SHORT).show()
+                    finish()  // 저장 후 뒤로
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "저장 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 }

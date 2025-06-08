@@ -6,26 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 툴바 -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbarList"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:title="저장된 계획"
-        app:navigationIcon="@drawable/ic_back"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+<!--    &lt;!&ndash; 툴바 &ndash;&gt;-->
+<!--    <com.google.android.material.appbar.MaterialToolbar-->
+<!--        android:id="@+id/toolbarList"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:title="저장된 계획"-->
+<!--        app:navigationIcon="@drawable/ic_back"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbarList"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+<!--    &lt;!&ndash; RecyclerView &ndash;&gt;-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/toolbarList"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
