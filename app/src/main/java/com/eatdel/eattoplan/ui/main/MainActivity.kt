@@ -1,21 +1,30 @@
 package com.eatdel.eattoplan.ui.main
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import com.eatdel.eattoplan.ui.bookmark.BookmarkActivity
-import com.eatdel.eattoplan.util.ListActivity
 import com.eatdel.eattoplan.R
-import com.eatdel.eattoplan.ui.result.ResultActivity
 import com.eatdel.eattoplan.databinding.ActivityMainBinding
+import com.eatdel.eattoplan.ui.bookmark.BookmarkActivity
+import com.eatdel.eattoplan.ui.photo.PhotoAnalysisActivity
+import com.eatdel.eattoplan.util.ListActivity
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
+    private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            val intent = Intent(this, PhotoAnalysisActivity::class.java)
+            intent.putExtra("imageUri", uri)
+            startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,14 +49,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.navView.setNavigationItemSelectedListener(this)
 
         // 4) 버튼 클릭 리스너 설정
-        binding.btnUploadPhoto.setOnClickListener {
-            startActivity(Intent(this, ResultActivity::class.java))
-        }
         binding.btnBookmark.setOnClickListener {
             startActivity(Intent(this, BookmarkActivity::class.java))
         }
         binding.btnSavedPlans.setOnClickListener {
             startActivity(Intent(this, ListActivity::class.java))
+        }
+        binding.btnAnalyzeFood.setOnClickListener {
+            imagePickerLauncher.launch("image/*")
         }
     }
 
