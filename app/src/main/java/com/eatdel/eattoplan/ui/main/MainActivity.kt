@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,6 +20,7 @@ import com.eatdel.eattoplan.databinding.ActivityMainBinding
 import com.eatdel.eattoplan.ui.bookmark.BookmarkActivity
 import com.eatdel.eattoplan.ui.detail.PlanDetailActivity
 import com.eatdel.eattoplan.ui.photo.PhotoAnalysisActivity
+import com.eatdel.eattoplan.ui.places.PlacesSearchActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -108,5 +110,30 @@ class MainActivity : AppCompatActivity(),
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // 툴바 오버플로우에만 main_menu.xml 을 inflate
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 1) 먼저 토글(햄버거 메뉴) 처리
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        // 2) 그 다음에 우리 오버플로우 메뉴 처리
+        return when (item.itemId) {
+            R.id.action_places -> {
+                Log.d("MainActivity", "Places 메뉴 클릭!")
+                startActivity(Intent(this, PlacesSearchActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+
 
 }

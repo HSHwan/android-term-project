@@ -61,4 +61,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+    // Places SDK for Android
+    implementation("com.google.android.libraries.places:places:2.6.0")
+    // 위치 획득용 Play Services
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }
