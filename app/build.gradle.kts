@@ -42,8 +42,6 @@ android {
 }
 
 dependencies {
-    implementation ("com.google.android.gms:play-services-maps:16.1.0")
-    //implementation("com.google.android.gms:play-services:12.0.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -51,6 +49,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.play.services.auth)
+    implementation(libs.play.services.maps)
     implementation(libs.firebase.auth)
     implementation(libs.datastore.preferences)
     implementation(libs.tensorflow.lite)
@@ -59,5 +58,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-//    implementation(libs.play.services)
 }
