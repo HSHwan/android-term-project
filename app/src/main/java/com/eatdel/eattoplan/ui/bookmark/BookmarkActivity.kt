@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.eatdel.eattoplan.adapter.BookmarkAdapter
 import com.eatdel.eattoplan.data.Bookmark
 import com.eatdel.eattoplan.databinding.ActivityBookmarkBinding
-import com.eatdel.eattoplan.ui.detail.BookmarkDetailActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -33,6 +32,7 @@ class BookmarkActivity : AppCompatActivity() {
         loadBookmarks()
     }
 
+
     private fun loadBookmarks() {
         db.collection("Bookmark")  // Firestore 컬렉션명
             .get()
@@ -40,18 +40,14 @@ class BookmarkActivity : AppCompatActivity() {
                 val list = snap.documents
                     .mapNotNull { it.toObject(Bookmark::class.java) }
                 binding.rvBookmark.adapter = BookmarkAdapter(list) { bm ->
-                    // 클릭 시 상세 화면으로 전달
-                    val intent = Intent(this, BookmarkDetailActivity::class.java).apply {
-                        putExtra(BookmarkDetailActivity.EXTRA_UID, bm.uid)
-                        putExtra(BookmarkDetailActivity.EXTRA_RESTAURANT, bm.restaurant_name)
-                        putExtra(BookmarkDetailActivity.EXTRA_PLACE_ID, bm.place_id)
-                        putExtra(BookmarkDetailActivity.EXTRA_RATE, bm.rate)
-                    }
-                    startActivity(intent)
+// ---------------------------------- 북마크 눌렀을 때 작동할 함수 ----------------------------------
+                    // 추후에 해당 식당 구글 플레이스로 이동 추가
                 }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "즐겨찾기 불러오기 실패: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
+    // ---------------------------------- 북마크 리스트 눌렀을 때 작동할 함수 ----------------------------------
 }

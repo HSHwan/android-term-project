@@ -84,32 +84,8 @@ class MainActivity : AppCompatActivity(),
 
             }
 
-
-/*
-        // Firestore 실시간으로 듣기
-        db.collection("plans")
-            .addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    Toast.makeText(this, "불러오기 실패: ${error.message}", Toast.LENGTH_SHORT).show()
-                    return@addSnapshotListener
-                }
-                val plans = snapshot
-                    ?.documents
-                    ?.mapNotNull { it.toObject(Plan::class.java) }
-                    ?: emptyList()
-                binding.recyclerView.adapter = ResultAdapter(plans) { plan ->
-                    Toast.makeText(this, "${plan.title} 선택됨", Toast.LENGTH_SHORT).show()
-                    // TODO: 상세 화면 이동
-                }
-            }*/
-
         // 4) 버튼 클릭 리스너 설정
-        binding.btnBookmark.setOnClickListener {
-            startActivity(Intent(this, BookmarkActivity::class.java))
-        }
-        binding.btnSavedPlans.setOnClickListener {
-            startActivity(Intent(this, ListActivity::class.java))
-        }
+
         binding.btnAnalyzeFood.setOnClickListener {
             imagePickerLauncher.launch("image/*")
         }
