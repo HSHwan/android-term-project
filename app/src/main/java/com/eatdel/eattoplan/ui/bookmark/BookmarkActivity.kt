@@ -1,39 +1,53 @@
+// app/src/main/java/com/eatdel/eattoplan/ui/bookmark/BookmarkActivity.kt
 package com.eatdel.eattoplan.ui.bookmark
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.eatdel.eattoplan.adapter.ResultAdapter
-import com.eatdel.eattoplan.data.SavedResult
+import com.eatdel.eattoplan.adapter.BookmarkAdapter
+import com.eatdel.eattoplan.data.Bookmark
 import com.eatdel.eattoplan.databinding.ActivityBookmarkBinding
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class BookmarkActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookmarkBinding
-
-    // TODO: 실제 즐겨찾기 데이터는 DB에서 불러오도록 변경
-    private val mockBookmarkList = listOf(
-        SavedResult(id = 1, foodName = "된장찌개", date = "2025-05-28 13:00"),
-        SavedResult(id = 2, foodName = "피자", date = "2025-05-30 19:45")
-    )
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 툴바 뒤로가기 설정
+        // 툴바 뒤로가기
         setSupportActionBar(binding.toolbarBookmark)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbarBookmark.setNavigationOnClickListener { finish() }
 
         // RecyclerView 세팅
         binding.rvBookmark.layoutManager = LinearLayoutManager(this)
-        val adapter = ResultAdapter(mockBookmarkList) { bookmarked ->
-            Toast.makeText(this, "${bookmarked.foodName} 즐겨찾기 선택됨", Toast.LENGTH_SHORT).show()
-            // TODO: 상세 화면 or MapActivity 등으로 이동
-        }
-        binding.rvBookmark.adapter = adapter
+        loadBookmarks()
     }
+
+
+    private fun loadBookmarks() {
+        db.collection("Bookmark")  // Firestore 컬렉션명
+            .get()
+            .addOnSuccessListener { snap ->
+                val list = snap.documents
+                    .mapNotNull { it.toObject(Bookmark::class.java) }
+                binding.rvBookmark.adapter = BookmarkAdapter(list) { bm ->
+// ---------------------------------- 북마크 눌렀을 때 작동할 함수 ----------------------------------
+                    // 추후에 해당 식당 구글 플레이스로 이동 추가
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "즐겨찾기 불러오기 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    // ---------------------------------- 북마크 리스트 눌렀을 때 작동할 함수 ----------------------------------
 }

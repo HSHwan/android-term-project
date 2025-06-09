@@ -1,8 +1,17 @@
 package com.eatdel.eattoplan.data
 
-data class SavedResult(
-    val id: Long = 0L,
-    val foodName: String,
-    val date: String // 저장된 날짜 (예: "2025-06-02 14:30")
-    // TODO: 필요 시 좌표, 이미지 URI 등 추가 필드
+data class Plan(
+    val uid: Long = 0L,
+    val title: String = "",
+    val restaurant_name: String = "",
+    val place_id: Long = 0L,
+    val meet_date: String = "",
+    val contact_info: String = ""
+)
+
+data class Bookmark(
+    val uid: Long = 0L,
+    val restaurant_name: String = "",
+    val place_id: Long = 0L,
+    val rate: Int = 0
 )
