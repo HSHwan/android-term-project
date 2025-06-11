@@ -48,17 +48,8 @@
             android:name=".ui.map.MapActivity"
             android:exported="false" />
 
-<!--        &lt;!&ndash; ListActivity &ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name=".util.ListActivity"-->
-<!--            android:exported="false" />-->
-
         <activity
             android:name=".ui.detail.PlanDetailActivity"
-            android:exported="false"/>
-
-        <activity
-            android:name=".ui.detail.BookmarkDetailActivity"
             android:exported="false"/>
 
 
