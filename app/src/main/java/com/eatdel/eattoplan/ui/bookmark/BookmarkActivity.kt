@@ -36,7 +36,6 @@ class BookmarkActivity : AppCompatActivity() {
         // RecyclerView + Adapter 초기화
         binding.rvBookmark.layoutManager = LinearLayoutManager(this)
         adapter = BookmarkAdapter(onUnbookmarkClick = { bm ->
-            // ❗️ 반드시 .document(bm.placeId) 호출
             db.collection("users")
                 .document(userId)
                 .collection("bookmarks")

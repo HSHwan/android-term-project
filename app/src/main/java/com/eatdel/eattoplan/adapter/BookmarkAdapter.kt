@@ -25,6 +25,7 @@ class BookmarkAdapter(
 
     override fun getItemCount(): Int = items.size
 
+    //
     override fun onBindViewHolder(holder: BookmarkViewHolder, position: Int) {
         val bm = items[position]
         with(holder.binding) {
