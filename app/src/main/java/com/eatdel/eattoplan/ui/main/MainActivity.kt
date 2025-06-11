@@ -103,8 +103,10 @@ class MainActivity : AppCompatActivity(),
                 // 저장된 계획 화면으로 이동
                 startActivity(Intent(this, MainActivity::class.java))
             }
-            // 필요하다면 다른 메뉴 아이템도 여기에 추가
-            // R.id.nav_someOther -> { … }
+            // 구글 플레이스로 이동
+            R.id.nav_places_search -> {
+                startActivity(Intent(this, PlacesSearchActivity::class.java))
+            }
         }
         // 메뉴 선택 후 드로어(사이드바) 닫기
         binding.drawerLayout.closeDrawer(GravityCompat.START)

@@ -1,12 +1,27 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.services)
 }
 
+
+
+val localProps = Properties().apply {
+    val propFile = rootProject.file("local.properties")
+    if (propFile.exists()) {
+        load(propFile.inputStream())
+    }
+}
+
 android {
     namespace = "com.eatdel.eattoplan"
     compileSdk = 35
+
+    val mapsKey: String = localProps.getProperty("GOOGLE_MAPS_API_KEY", "")
+    android.buildFeatures.buildConfig = true
+
 
 
     buildFeatures {
@@ -21,6 +36,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // 3A) BuildConfig 필드로 주입
+        buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"$mapsKey\"")
+
+        // 3B) strings.xml 에도 주입하고 싶다면
+        resValue("string", "google_maps_key", mapsKey)
+
     }
 
     buildTypes {

@@ -27,4 +27,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <!-- 즐겨찾기 아이콘 -->
+    <ImageView
+        android:id="@+id/ivBookmark"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_bookmark"
+        app:tint="?attr/colorOnSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- 계획 저장 아이콘 -->
+    <ImageView
+        android:id="@+id/ivSavePlan"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_saved"
+        app:tint="?attr/colorOnSurface"
+        app:layout_constraintEnd_toStartOf="@id/ivBookmark"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="12dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

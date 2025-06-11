@@ -24,7 +24,7 @@
 <!--        구글 API-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA29tqoqMghkfbnIRmGpss3nS9wN8bPJUo" />
+            android:value="@string/google_maps_key" />
         <!--        구글 API-->
 
 
