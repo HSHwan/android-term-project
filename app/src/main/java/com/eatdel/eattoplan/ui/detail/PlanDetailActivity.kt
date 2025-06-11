@@ -27,7 +27,7 @@ class PlanDetailActivity : AppCompatActivity() {
         binding.tvDetailMeetDate.text =
             "모임일: " + (intent.getStringExtra(EXTRA_MEET_DATE) ?: "")
         binding.tvDetailContact.text =
-            "연락처: " + (intent.getStringExtra(EXTRA_CONTACT_INFO) ?: "")
+            "메모: " + (intent.getStringExtra(EXTRA_MEMO) ?: "")
     }
 
     // 툴바 뒤로가기 아이콘 클릭 시
@@ -42,6 +42,6 @@ class PlanDetailActivity : AppCompatActivity() {
         const val EXTRA_RESTAURANT_NAME = "extra_restaurant_name"
         const val EXTRA_PLACE_ID        = "extra_place_id"
         const val EXTRA_MEET_DATE       = "extra_meet_date"
-        const val EXTRA_CONTACT_INFO    = "extra_contact_info"
+        const val EXTRA_MEMO            = "EXTRA_MEMO"
     }
 }

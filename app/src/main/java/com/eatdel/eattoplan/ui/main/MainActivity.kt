@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(),
                         putExtra(PlanDetailActivity.EXTRA_RESTAURANT_NAME, plan.restaurant_name)
                         putExtra(PlanDetailActivity.EXTRA_PLACE_ID, plan.place_id)
                         putExtra(PlanDetailActivity.EXTRA_MEET_DATE, plan.meet_date)
-                        putExtra(PlanDetailActivity.EXTRA_CONTACT_INFO, plan.contact_info)
+                        putExtra(PlanDetailActivity.EXTRA_MEMO, plan.memo)
                         putExtra(PlanDetailActivity.EXTRA_UID, plan.uid)
                     }
                     startActivity(intent)
@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity(),
             }
 
         // 4) 버튼 클릭 리스너 설정
-
         binding.btnAnalyzeFood.setOnClickListener {
             imagePickerLauncher.launch("image/*")
         }

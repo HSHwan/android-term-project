@@ -6,7 +6,7 @@ data class Plan(
     val restaurant_name: String = "",
     val place_id: Long = 0L,
     val meet_date: String = "",
-    val contact_info: String = ""
+    val memo: String = ""
 )
 
 data class Bookmark(
