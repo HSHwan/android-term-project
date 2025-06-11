@@ -1,4 +1,3 @@
-// app/src/main/java/com/eatdel/eattoplan/ui/main/MainActivity.kt
 package com.eatdel.eattoplan.ui.main
 
 import android.content.Intent
