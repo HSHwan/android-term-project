@@ -75,11 +75,11 @@ class MainActivity : AppCompatActivity(),
                     // 클릭된 Plan을 Detail 액티비티로 넘김
                     val intent = Intent(this, PlanDetailActivity::class.java).apply {
                         putExtra(PlanDetailActivity.EXTRA_TITLE, plan.title)
-                        putExtra(PlanDetailActivity.EXTRA_RESTAURANT_NAME, plan.restaurant_name)
+                        putExtra(PlanDetailActivity.EXTRA_RESTAURANT_NAME, plan.name)
                         putExtra(PlanDetailActivity.EXTRA_PLACE_ID, plan.place_id)
                         putExtra(PlanDetailActivity.EXTRA_MEET_DATE, plan.meet_date)
                         putExtra(PlanDetailActivity.EXTRA_CONTACT_INFO, plan.contact_info)
-                        putExtra(PlanDetailActivity.EXTRA_UID, plan.uid)
+                        //putExtra(PlanDetailActivity.EXTRA_UID, plan.uid)
                     }
                     startActivity(intent)
                 }
