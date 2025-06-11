@@ -157,6 +157,7 @@ class PlacesSearchActivity : AppCompatActivity() {
             append("&language=ko&key=$apiKey")
         }
 
+        //리뷰 200개 넘는 것 중에 별점 상위 5개 식당
         CoroutineScope(Dispatchers.IO).launch {
             val resp = httpClient.newCall(Request.Builder().url(url).build())
                 .execute().body?.string().orEmpty()
