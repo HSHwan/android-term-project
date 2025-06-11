@@ -2,7 +2,6 @@ package com.eatdel.eattoplan.ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.eatdel.eattoplan.R
 import com.eatdel.eattoplan.databinding.ActivityPlanDetailBinding
 
 class PlanDetailActivity : AppCompatActivity() {

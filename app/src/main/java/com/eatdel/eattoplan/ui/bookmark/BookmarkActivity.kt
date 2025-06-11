@@ -1,7 +1,5 @@
-// app/src/main/java/com/eatdel/eattoplan/ui/bookmark/BookmarkActivity.kt
 package com.eatdel.eattoplan.ui.bookmark
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity

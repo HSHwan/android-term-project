@@ -1,4 +1,3 @@
-// app/src/main/java/com/eatdel/eattoplan/adapter/BookmarkAdapter.kt
 package com.eatdel.eattoplan.adapter
 
 import android.view.LayoutInflater
