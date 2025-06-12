@@ -1,11 +1,11 @@
 package com.eatdel.eattoplan.data
 
 data class Plan(
-    val title: String = "",
-    val name: String = "",
     val place_id: String = "",
-    val meet_date: String = "",
-    val contact_info: String = ""
+    val name:    String = "",
+    val address: String = "",
+    val memo:    String = "",
+    val meet_date:    String = ""
 )
 
 data class Bookmark(
