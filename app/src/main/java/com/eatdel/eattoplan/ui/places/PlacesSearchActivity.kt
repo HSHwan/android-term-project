@@ -34,7 +34,18 @@ import okhttp3.Request
 import org.json.JSONObject
 import java.net.URLEncoder
 
+//날짜 관련 import
+import android.app.AlertDialog
+import android.widget.DatePicker
+import android.widget.EditText
+import java.util.Calendar
+
 class PlacesSearchActivity : AppCompatActivity() {
+
+    //음식명 입력 값 받기
+    companion object {
+        const val EXTRA_QUERY = "extra_query"
+    }
 
     private lateinit var binding: ActivityPlacesSearchBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -70,6 +81,8 @@ class PlacesSearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacesSearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         // 1) Places SDK 초기화
         Places.initialize(applicationContext, apiKey)
@@ -120,6 +133,21 @@ class PlacesSearchActivity : AppCompatActivity() {
             binding.etKeyword.text.toString().trim().takeIf { it.isNotEmpty() }
                 ?.let { searchNearbyPlaces(it) }
         }
+
+        //데이터 전달하기
+        // ① 인텐트에서 변수 꺼내기
+        val initialQuery = intent.getStringExtra(EXTRA_QUERY)
+        if (!initialQuery.isNullOrBlank()) {
+            // ② EditText에 세팅
+            binding.etKeyword.setText(initialQuery)
+            // ③ 바로 검색 실행 (권한 체크 포함)
+            if (hasLocationPermission()) {
+                searchNearbyPlaces(initialQuery)
+            } else {
+                permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        }
+
     }
 
     /** 현재 위치를 가져와서 Nearby Search 호출 */
@@ -243,30 +271,76 @@ class PlacesSearchActivity : AppCompatActivity() {
 
     /** 계획 저장 토글 (기존 로직 그대로) */
     private fun handleSaveToggle(place: PlaceItem, add: Boolean) {
-        val doc = db.collection("users")
+        val plansRef = db
+            .collection("users")
             .document(userId)
             .collection("plans")
             .document(place.place_id)
 
         if (add) {
-            doc.set(place)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "내 계획에 추가되었습니다", Toast.LENGTH_SHORT).show()
-                    savedIds.add(place.place_id)
+            // 1) 커스텀 다이얼로그 뷰 inflate
+            val dialogView = layoutInflater.inflate(R.layout.dialog_plan, null)
+            val etMemo = dialogView.findViewById<EditText>(R.id.etMemo)
+            val dp     = dialogView.findViewById<DatePicker>(R.id.datePicker)
+
+            // 2) 오늘 날짜로 초기화 (선택사항)
+            val today = Calendar.getInstance()
+            dp.updateDate(today.get(Calendar.YEAR),
+                today.get(Calendar.MONTH),
+                today.get(Calendar.DAY_OF_MONTH))
+
+            // 3) 다이얼로그 띄우기
+            AlertDialog.Builder(this)
+                .setTitle("계획 추가")
+                .setView(dialogView)
+                .setPositiveButton("저장") { _, _ ->
+                    // 4) 유저 입력값 읽어오기
+                    val memo = etMemo.text.toString().trim()
+                    val meet_date = "${dp.year}-${dp.month + 1}-${dp.dayOfMonth}"
+
+                    // 5) Firestore에 저장할 맵 생성
+                    val data = mapOf(
+                        "place_id" to place.place_id,
+                        "name"    to place.name,
+                        "address" to place.address,
+                        "memo"    to memo,
+                        "meet_date"    to meet_date
+                    )
+
+                    // 6) DB에 set, UI 업데이트
+                    plansRef.set(data)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "계획에 추가되었습니다", Toast.LENGTH_SHORT).show()
+                            savedIds.add(place.place_id)
+                            val idx = adapter.currentItems.indexOf(place)
+                            if (idx >= 0) adapter.notifyItemChanged(idx)
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "저장 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "계획 저장 실패", Toast.LENGTH_SHORT).show()
-                }
+                .setNegativeButton("취소", null)
+                .show()
+
         } else {
-            doc.delete()
+            // 삭제 로직은 그대로
+            plansRef.delete()
                 .addOnSuccessListener {
-                    Toast.makeText(this, "내 계획에서 제거되었습니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "계획에서 제거되었습니다", Toast.LENGTH_SHORT).show()
                     savedIds.remove(place.place_id)
+                    val idx = adapter.currentItems.indexOf(place)
+                    if (idx >= 0) adapter.notifyItemChanged(idx)
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "계획 제거 실패", Toast.LENGTH_SHORT).show()
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "제거 실패: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         }
-        adapter.notifyDataSetChanged()
     }
+
+
+    private fun hasLocationPermission() =
+        ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED
+
 }
+
