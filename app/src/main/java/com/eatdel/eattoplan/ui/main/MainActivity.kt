@@ -83,10 +83,10 @@ class MainActivity : AppCompatActivity(),
                 },
                     onRemoveClick = { plan ->
                         // Firestore에서 삭제
-                        db.collection("users")
+                        db.collection("users")                       // 1단계: users
                             .document(userId)
                             .collection("plans")
-                            .document(plan.place_id)
+                            .document(plan.place_id)  // ← plan.place_id 가 실제 문서ID여야 합니다!
                             .delete()
                             .addOnSuccessListener {
                                 Toast.makeText(this,

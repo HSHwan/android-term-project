@@ -26,7 +26,7 @@ class BookmarkActivity : AppCompatActivity() {
 
     // 즐겨찾기 항목
     private val bookmarkedIds = mutableSetOf<String>()
-    // 계획 저장된 항목(placeId)
+    // 계획 저장된 항목(place_id)
     private val savedIds      = mutableSetOf<String>()
 
     private lateinit var adapter: BookmarkAdapter
@@ -134,7 +134,7 @@ class BookmarkActivity : AppCompatActivity() {
                     val date = "${dp.year}-${dp.month+1}-${dp.dayOfMonth}"
                     // 저장할 데이터
                     val data = mapOf(
-                        "placeId"  to bm.place_id,
+                        "place_id"  to bm.place_id,
                         "name"     to bm.name,
                         "address"  to bm.address,
                         "memo"     to memo,
