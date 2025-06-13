@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.eatdel.eattoplan.ui.places.PlacesSearchActivity
 import com.eatdel.eattoplan.ui.result.ResultActivity
 import com.eatdel.eattoplan.util.ImageClassifier
 import java.io.InputStream
@@ -22,7 +23,7 @@ class PhotoAnalysisActivity : AppCompatActivity() {
             val classifier = ImageClassifier(this)
             val result = classifier.classify(bitmap)
 
-            val intent = Intent(this, ResultActivity::class.java)
+            val intent = Intent(this, PlacesSearchActivity::class.java)
             intent.putExtra("foodName", result)
             startActivity(intent)
             finish()

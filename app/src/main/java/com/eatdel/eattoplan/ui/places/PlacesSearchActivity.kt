@@ -44,7 +44,7 @@ class PlacesSearchActivity : AppCompatActivity() {
 
     //음식명 입력 값 받기
     companion object {
-        const val EXTRA_QUERY = "extra_query"
+        const val EXTRA_QUERY = "foodName"
     }
 
     private lateinit var binding: ActivityPlacesSearchBinding

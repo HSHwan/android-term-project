@@ -23,13 +23,10 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 예시: 인텐트로부터 받아온 값
-        //val uid             = intent.getLongExtra("place_id", 0L)
-        //val title           = intent.getStringExtra("title") ?: ""
+        // DB 데이터 받아오기
         val restaurantName  = intent.getStringExtra("restaurant_name") ?: ""
         val placeId         = intent.getStringExtra("place_id") ?: ""
         val meetDate        = intent.getStringExtra("meet_date") ?: ""
-       // val contactInfo     = intent.getStringExtra("contact_info") ?: ""
         val memo            = intent.getStringExtra("memo") ?: ""
         val address         = intent.getStringExtra("address") ?: ""
 
@@ -38,12 +35,9 @@ class ResultActivity : AppCompatActivity() {
 
         binding.btnSaveResult.setOnClickListener {
             val plan = Plan(
-                //uid             = uid,
-                //title           = title,
                 name = restaurantName,
                 place_id        = placeId,
                 meet_date       = meetDate,
-                //contact_info    = contactInfo
                 memo          = memo,
                 address = address
             )

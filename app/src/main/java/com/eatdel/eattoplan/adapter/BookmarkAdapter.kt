@@ -5,10 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.eatdel.eattoplan.data.Bookmark
 import com.eatdel.eattoplan.databinding.ItemBookmarkBinding
+import com.eatdel.eattoplan.R
 
 class BookmarkAdapter(
     private var items: List<Bookmark> = emptyList(),
-    private val onUnbookmarkClick: (Bookmark) -> Unit
+    private val savedIds: MutableSet<String>,               // plans 에 저장된 placeId 집합
+    private val onUnbookmarkClick: (Bookmark) -> Unit,      // 즐겨찾기 해제 콜백
+    private val onPlanToggle: (Bookmark, Boolean) -> Unit   // 계획 저장/해제 콜백
 ) : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
 
     inner class BookmarkViewHolder(val binding: ItemBookmarkBinding)
@@ -38,6 +41,16 @@ class BookmarkAdapter(
             ivUnbookmark.setOnClickListener {
                 onUnbookmarkClick(bm)
             }
+            // 3. 계획 저장 아이콘 상태
+            val isPlanned = savedIds.contains(bm.place_id)
+            ivSavePlan.setImageResource(
+                if (isPlanned) R.drawable.ic_plan_delete
+                else R.drawable.ic_plan_add
+            )
+            // 4) 계획 저장/해제 클릭
+            ivSavePlan.setOnClickListener {
+                onPlanToggle(bm, !isPlanned)
+            }
         }
     }
 
@@ -55,4 +68,12 @@ class BookmarkAdapter(
             notifyItemRemoved(idx)
         }
     }
+
+    fun updatePlanState(placeId: String, added: Boolean) {
+        if (added) savedIds.add(placeId) else savedIds.remove(placeId)
+        // 변경된 아이템 하나만 갱신
+        val idx = items.indexOfFirst { it.place_id == placeId }
+        if (idx >= 0) notifyItemChanged(idx)
+    }
+
 }
