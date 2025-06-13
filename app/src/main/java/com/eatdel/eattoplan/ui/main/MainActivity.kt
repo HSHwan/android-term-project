@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity(),
             R.id.nav_bookmark       -> startActivity(Intent(this, BookmarkActivity::class.java))
             R.id.nav_saved          -> {/* 현재 이 화면이 바로 저장된 계획 화면이므로 넘기지 않음 */}
 
-            R.id.nav_places_search  -> openPlaceSearch("돈까스") // 괄호 안에 머신러닝 결과 데이터 넣기
+            R.id.nav_places_search  -> openPlaceSearch("") // 괄호 안에 머신러닝 결과 데이터 넣기
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
