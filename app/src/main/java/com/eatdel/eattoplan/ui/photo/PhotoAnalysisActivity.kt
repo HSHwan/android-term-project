@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.eatdel.eattoplan.ui.places.PlacesSearchActivity
-import com.eatdel.eattoplan.ui.result.ResultActivity
 import com.eatdel.eattoplan.util.ImageClassifier
 import java.io.InputStream
 

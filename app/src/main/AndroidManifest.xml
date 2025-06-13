@@ -38,15 +38,6 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
 
-        <!-- ResultActivity -->
-        <activity
-            android:name=".ui.result.ResultActivity"
-            android:exported="false" />
-
-        <!-- MapActivity -->
-        <activity
-            android:name=".ui.map.MapActivity"
-            android:exported="false" />
 
         <activity
             android:name=".ui.detail.PlanDetailActivity"
