@@ -24,24 +24,28 @@ class ResultActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 예시: 인텐트로부터 받아온 값
-        val uid             = intent.getLongExtra("place_id", 0L)
-        val title           = intent.getStringExtra("title") ?: ""
+        //val uid             = intent.getLongExtra("place_id", 0L)
+        //val title           = intent.getStringExtra("title") ?: ""
         val restaurantName  = intent.getStringExtra("restaurant_name") ?: ""
-        val placeId         = intent.getLongExtra("place_id", 0L)
+        val placeId         = intent.getStringExtra("place_id") ?: ""
         val meetDate        = intent.getStringExtra("meet_date") ?: ""
+       // val contactInfo     = intent.getStringExtra("contact_info") ?: ""
         val memo            = intent.getStringExtra("memo") ?: ""
+        val address         = intent.getStringExtra("address") ?: ""
 
         // 화면에 일단 보여주기
-        binding.tvFoodResult.text = "제목: $title\n음식점: $restaurantName\n모임일: $meetDate\n메모: $memo"
+        binding.tvFoodResult.text = "제목: $title\n음식점: $restaurantName\n모임일: $meetDate"
 
         binding.btnSaveResult.setOnClickListener {
             val plan = Plan(
-                uid             = uid,
-                title           = title,
-                restaurant_name = restaurantName,
+                //uid             = uid,
+                //title           = title,
+                name = restaurantName,
                 place_id        = placeId,
                 meet_date       = meetDate,
-                memo            = memo
+                //contact_info    = contactInfo
+                memo          = memo,
+                address = address
             )
 
             db.collection("foodplan")

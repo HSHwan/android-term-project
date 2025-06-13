@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 1) 툴바 추가 -->
+    <!-- 툴바 -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbarDetail"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:title="@string/plan_detail_title"
+        app:title="@string/plan_detail_title"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white"/>
 
-    <!-- 2) 내용은 툴바 아래에 배치 -->
+    <!-- 내용 -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,37 +27,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- 음식점 이름 -->
             <TextView
-                android:id="@+id/tvDetailTitle"
+                android:id="@+id/tvDetailRestaurant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:paddingBottom="8dp"/>
 
+            <!-- 주소 -->
             <TextView
-                android:id="@+id/tvDetailRestaurant"
+                android:id="@+id/tvDetailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="4dp"/>
 
-            <TextView
-                android:id="@+id/tvDetailPlaceId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="4dp"/>
-
+            <!-- 모임 날짜 -->
             <TextView
                 android:id="@+id/tvDetailMeetDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="4dp"/>
 
+            <!-- 메모 -->
             <TextView
-                android:id="@+id/tvDetailContact"
+                android:id="@+id/tvDetailMemo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="4dp"/>
+
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

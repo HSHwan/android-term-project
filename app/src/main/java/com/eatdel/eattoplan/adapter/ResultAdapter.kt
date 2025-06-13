@@ -14,7 +14,7 @@ class ResultAdapter(
     inner class ViewHolder(val binding: ItemResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(plan: Plan) {
-            binding.tvItemFoodName.text = plan.restaurant_name
+            binding.tvItemFoodName.text = plan.name
             binding.tvItemDate.text = plan.meet_date
             binding.root.setOnClickListener { onClick(plan) }
         }
