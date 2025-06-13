@@ -70,7 +70,9 @@ class MainActivity : AppCompatActivity(),
                     return@addSnapshotListener
                 }
                 val list = snap?.toObjects(Plan::class.java) ?: emptyList()
-                binding.recyclerView.adapter = ResultAdapter(list) { plan ->
+                binding.recyclerView.adapter = ResultAdapter(
+                    items = list,
+                    onClick = { plan ->
                     val intent = Intent(this, PlanDetailActivity::class.java).apply {
                         putExtra(PlanDetailActivity.EXTRA_RESTAURANT_NAME, plan.name)
                         putExtra(PlanDetailActivity.EXTRA_ADDRESS,         plan.address)
@@ -78,7 +80,29 @@ class MainActivity : AppCompatActivity(),
                         putExtra(PlanDetailActivity.EXTRA_MEMO,            plan.memo)
                     }
                     startActivity(intent)
-                }
+                },
+                    onRemoveClick = { plan ->
+                        // Firestore에서 삭제
+                        db.collection("users")
+                            .document(userId)
+                            .collection("plans")
+                            .document(plan.place_id)
+                            .delete()
+                            .addOnSuccessListener {
+                                Toast.makeText(this,
+                                    "${plan.name} 계획이 삭제되었습니다",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                // snapshotListener가 자동 갱신해 줌
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this,
+                                    "삭제 실패: ${e.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    }
+                )
             }
 
         binding.btnAnalyzeFood.setOnClickListener {

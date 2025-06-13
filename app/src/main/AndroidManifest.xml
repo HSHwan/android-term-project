@@ -47,6 +47,7 @@
         <!-- BookmarkActivity -->
         <activity
             android:name=".ui.bookmark.BookmarkActivity"
+            android:label="즐겨찾기"
             android:exported="false" />
 
         <activity

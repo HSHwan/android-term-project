@@ -12,7 +12,7 @@
     <item
         android:id="@+id/nav_saved"
         android:title="저장된 계획"
-        android:icon="@drawable/ic_saved" />
+        android:icon="@drawable/ic_notes" />
 
 
     <item

@@ -1,84 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bookmark_root"
+    android:id="@+id/cardBookmark"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/surface_variant"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/bookmark_item_background"
+    android:foreground="?attr/selectableItemBackground">
 
-    <!-- 식당 이름 -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <TextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="식당 이름"
-        android:textSize="16sp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivUnbookmark"
-        app:layout_constraintTop_toTopOf="parent"
         android:ellipsize="end"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/llActions"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- 평점 -->
-    <TextView
+
+        <TextView
         android:id="@+id/tvRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="4.3"
-        android:textSize="14sp"
+        android:text="4.5 ★"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         app:layout_constraintStart_toStartOf="@id/tvName"
         app:layout_constraintTop_toBottomOf="@id/tvName"
         android:layout_marginTop="4dp"/>
 
-    <!-- 주소 -->
-    <TextView
+
+        <TextView
         android:id="@+id/tvAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="부산시 금정구 중앙대로 1664"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/tvName"
-        app:layout_constraintEnd_toStartOf="@id/ivUnbookmark"
-        app:layout_constraintTop_toBottomOf="@id/tvRating"
-        android:layout_marginTop="2dp"
+        android:text="서울 강남구 역삼동"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         android:ellipsize="end"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintEnd_toStartOf="@id/llActions"
+        app:layout_constraintTop_toBottomOf="@id/tvRating"
+        android:layout_marginTop="2dp"/>
 
-    <!-- 전화번호 -->
-    <TextView
+
+        <TextView
         android:id="@+id/tvPhone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="051-123-4567"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/tvName"
-        app:layout_constraintEnd_toStartOf="@id/ivUnbookmark"
-        app:layout_constraintTop_toBottomOf="@id/tvAddress"
-        android:layout_marginTop="2dp"
+        android:text="010-1234-5678"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         android:ellipsize="end"
-        android:maxLines="1"/>
-
-    <ImageView
-        android:id="@+id/ivSavePlan"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_plan_add"
-        app:tint="?attr/colorOnSurface"
-        app:layout_constraintEnd_toStartOf="@id/ivUnbookmark"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="8dp"/>
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintEnd_toStartOf="@id/llActions"
+        app:layout_constraintTop_toBottomOf="@id/tvAddress"
+        android:layout_marginTop="2dp"/>
 
 
-    <!-- 즐겨찾기 해제 아이콘 -->
-    <ImageView
-        android:id="@+id/ivUnbookmark"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_bookmark"
-        app:tint="?attr/colorOnSurface"
+            <!-- 액션 버튼 (계획 / 즐겨찾기 해제) -->
+        <LinearLayout
+        android:id="@+id/llActions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="@id/tvName">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/ivSavePlan"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_plan_add"
+            android:contentDescription="계획 토글"
+            android:layout_marginEnd="16dp"/>
+
+        <ImageView
+            android:id="@+id/ivUnbookmark"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_bookmark"
+            android:contentDescription="즐겨찾기 해제"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
