@@ -51,7 +51,7 @@ class ResultActivity : AppCompatActivity() {
             db.collection("foodplan")
                 .add(plan)
                 .addOnSuccessListener {
-                    addCalendarEvent(title, meetDate, restaurantName, memo)
+                    addCalendarEvent(address, meetDate, restaurantName, memo)
                     Toast.makeText(this, "저장 성공!", Toast.LENGTH_SHORT).show()
                     finish()  // 저장 후 뒤로
                 }
@@ -62,7 +62,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun addCalendarEvent(
-        title: String,
+        address: String,
         startTimeString: String,
         location: String,
         memo: String
@@ -72,7 +72,7 @@ class ResultActivity : AppCompatActivity() {
 
         val intent = Intent(Intent.ACTION_INSERT).apply {
             data = CalendarContract.Events.CONTENT_URI
-            putExtra(CalendarContract.Events.TITLE, title)
+            putExtra(CalendarContract.Events.TITLE, address)
             putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime)
             putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime)
             putExtra(CalendarContract.Events.EVENT_LOCATION, location)
