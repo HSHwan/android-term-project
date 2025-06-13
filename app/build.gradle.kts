@@ -1,12 +1,27 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.services)
 }
 
+
+
+val localProps = Properties().apply {
+    val propFile = rootProject.file("local.properties")
+    if (propFile.exists()) {
+        load(propFile.inputStream())
+    }
+}
+
 android {
     namespace = "com.eatdel.eattoplan"
     compileSdk = 35
+
+    val mapsKey: String = localProps.getProperty("GOOGLE_MAPS_API_KEY", "")
+    android.buildFeatures.buildConfig = true
+
 
 
     buildFeatures {
@@ -21,6 +36,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // 3A) BuildConfig 필드로 주입
+        buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"$mapsKey\"")
+
+        // 3B) strings.xml 에도 주입하고 싶다면
+        resValue("string", "google_maps_key", mapsKey)
+
     }
 
     buildTypes {
@@ -61,4 +82,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+    // Places SDK for Android
+    implementation("com.google.android.libraries.places:places:2.6.0")
+    // 위치 획득용 Play Services
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }
