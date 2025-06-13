@@ -9,6 +9,7 @@ import com.eatdel.eattoplan.R
 import com.eatdel.eattoplan.ui.login.LoginActivity
 import com.eatdel.eattoplan.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
@@ -18,6 +19,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         lifecycleScope.launch {
+            delay(1500)
             val isFirebaseLoggedIn = FirebaseAuth.getInstance().currentUser != null
 
             if (isFirebaseLoggedIn) {
