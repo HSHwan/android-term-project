@@ -40,6 +40,7 @@ import android.widget.DatePicker
 import android.widget.EditText
 import com.eatdel.eattoplan.util.CalendarManager
 import java.util.Calendar
+import java.util.Locale
 
 class PlacesSearchActivity : AppCompatActivity() {
 
@@ -299,7 +300,7 @@ class PlacesSearchActivity : AppCompatActivity() {
                 .setPositiveButton("저장") { _, _ ->
                     // 4) 유저 입력값 읽어오기
                     val memo = etMemo.text.toString().trim()
-                    val meet_date = "${dp.year}-${dp.month + 1}-${dp.dayOfMonth}"
+                    val meet_date = String.format(Locale.getDefault(), "%d-%02d-%02d", dp.year, dp.month+1, dp.dayOfMonth)
 
                     // 5) Firestore에 저장할 맵 생성
                     val data = mapOf(

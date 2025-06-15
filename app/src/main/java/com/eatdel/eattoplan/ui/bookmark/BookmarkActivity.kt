@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.Calendar
+import java.util.Locale
 
 class BookmarkActivity : AppCompatActivity() {
 
@@ -134,7 +135,7 @@ class BookmarkActivity : AppCompatActivity() {
                 .setView(v)
                 .setPositiveButton("저장") { _, _ ->
                     val memo = etMemo.text.toString().trim()
-                    val date = "${dp.year}-${dp.month+1}-${dp.dayOfMonth}"
+                    val date = String.format(Locale.getDefault(), "%d-%02d-%02d", dp.year, dp.month+1, dp.dayOfMonth)
                     // 저장할 데이터
                     val data = mapOf(
                         "place_id"  to bm.place_id,
