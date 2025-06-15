@@ -18,4 +18,7 @@
 
     <color name="place_item_background">#E3F2FD</color>
 
+    <color name="main_background"> #EBDDC8</color>
+    <color name="main_toolbar"> #D3C7B3</color>
+
 </resources>

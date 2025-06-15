@@ -10,7 +10,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/main_background"
+        >
 
         <!-- 1) 기존 툴바 유지 -->
         <com.google.android.material.appbar.MaterialToolbar
@@ -21,8 +23,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="?attr/colorPrimary"
+            android:backgroundTint="@color/main_toolbar"
             app:title="저장된 계획"
-            app:titleTextColor="@android:color/white"/>
+            app:titleTextColor="@android:color/black"/>
 
         <!-- 2) **RecyclerView 추가** -->
         <androidx.recyclerview.widget.RecyclerView
@@ -37,17 +40,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- 3) 기존 FloatingActionButton 등… -->
-        <!-- 예시로 FAB 배치 -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        <ImageButton
             android:id="@+id/btnAnalyzeFood"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_food_analyze"
+            android:background="@drawable/rounded_button_background"
+            android:scaleType="centerInside"
+            android:padding="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_food_analyze"
-            app:backgroundTint="?attr/colorSecondary"/>
+            android:layout_margin="24dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
