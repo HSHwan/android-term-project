@@ -114,8 +114,20 @@ class MainActivity : AppCompatActivity(),
         when (item.itemId) {
             R.id.nav_bookmark       -> startActivity(Intent(this, BookmarkActivity::class.java))
             R.id.nav_saved          -> {/* 현재 이 화면이 바로 저장된 계획 화면이므로 넘기지 않음 */}
-
             R.id.nav_places_search  -> openPlaceSearch("") // 괄호 안에 머신러닝 결과 데이터 넣기
+            R.id.nav_calendar       -> {
+                val intent = packageManager.getLaunchIntentForPackage("com.google.android.calendar")
+                if (intent != null) {
+                    startActivity(intent)
+                } else {
+                    // 구글 캘린더 앱이 설치되어 있지 않은 경우 Play 스토어로 이동
+                    val playStoreIntent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse("market://details?id=com.google.android.calendar")
+                        setPackage("com.android.vending")
+                    }
+                    startActivity(playStoreIntent)
+                }
+            }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
