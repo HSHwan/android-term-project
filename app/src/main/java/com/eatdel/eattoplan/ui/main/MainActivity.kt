@@ -1,6 +1,7 @@
 package com.eatdel.eattoplan.ui.main
 
 import android.content.ActivityNotFoundException
+import android.content.ContentUris
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -118,8 +119,11 @@ class MainActivity : AppCompatActivity(),
             R.id.nav_saved          -> {/* 현재 이 화면이 바로 저장된 계획 화면이므로 넘기지 않음 */}
             R.id.nav_places_search  -> openPlaceSearch("") // 괄호 안에 머신러닝 결과 데이터 넣기
             R.id.nav_calendar       -> {
+                val builder = CalendarContract.CONTENT_URI.buildUpon()
+                builder.appendPath("time")
+                ContentUris.appendId(builder, System.currentTimeMillis())
                 val intent = Intent(Intent.ACTION_VIEW).apply {
-                    data = CalendarContract.CONTENT_URI
+                    data = builder.build()
                 }
                 try {
                     startActivity(intent)
