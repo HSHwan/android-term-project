@@ -11,6 +11,7 @@ import com.eatdel.eattoplan.R
 import com.eatdel.eattoplan.adapter.BookmarkAdapter
 import com.eatdel.eattoplan.data.Bookmark
 import com.eatdel.eattoplan.databinding.ActivityBookmarkBinding
+import com.eatdel.eattoplan.util.CalendarManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -115,6 +116,8 @@ class BookmarkActivity : AppCompatActivity() {
             .collection("plans")
             .document(bm.place_id)
 
+        val calendarManager = CalendarManager(this)
+
         if (add) {
             // 다이얼로그로 메모·날짜 입력
             val v = layoutInflater.inflate(R.layout.dialog_plan, null)
@@ -140,8 +143,13 @@ class BookmarkActivity : AppCompatActivity() {
                         "memo"     to memo,
                         "meet_date" to date
                     )
+
                     ref.set(data)
                         .addOnSuccessListener {
+                            val calendarCreated = calendarManager.createRestaurantEvent(bm.name, memo, date)
+                            if (calendarCreated) {
+                                Toast.makeText(this, "일정이 생성되었습니다", Toast.LENGTH_SHORT).show()
+                            }
                             Toast.makeText(this,
                                 "계획에 추가되었습니다",Toast.LENGTH_SHORT).show()
                             adapter.updatePlanState(bm.place_id, true)
@@ -158,6 +166,10 @@ class BookmarkActivity : AppCompatActivity() {
             // 제거
             ref.delete()
                 .addOnSuccessListener {
+                    val calendarDeleted = calendarManager.deleteRestaurantEventByName(bm.name)
+                    if (calendarDeleted) {
+                        Toast.makeText(this, "일정이 제거되었습니다",Toast.LENGTH_SHORT).show()
+                    }
                     Toast.makeText(this,
                         "계획에서 제거되었습니다",Toast.LENGTH_SHORT).show()
                     adapter.updatePlanState(bm.place_id, false)
