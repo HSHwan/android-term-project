@@ -1,8 +1,10 @@
 package com.eatdel.eattoplan.ui.main
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -116,11 +118,12 @@ class MainActivity : AppCompatActivity(),
             R.id.nav_saved          -> {/* 현재 이 화면이 바로 저장된 계획 화면이므로 넘기지 않음 */}
             R.id.nav_places_search  -> openPlaceSearch("") // 괄호 안에 머신러닝 결과 데이터 넣기
             R.id.nav_calendar       -> {
-                val intent = packageManager.getLaunchIntentForPackage("com.google.android.calendar")
-                if (intent != null) {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = CalendarContract.CONTENT_URI
+                }
+                try {
                     startActivity(intent)
-                } else {
-                    // 구글 캘린더 앱이 설치되어 있지 않은 경우 Play 스토어로 이동
+                } catch (e: ActivityNotFoundException) {
                     val playStoreIntent = Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse("market://details?id=com.google.android.calendar")
                         setPackage("com.android.vending")
