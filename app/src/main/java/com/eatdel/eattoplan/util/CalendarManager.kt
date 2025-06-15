@@ -58,11 +58,15 @@ class CalendarManager(private val context: Context) {
 
         val startTimeMillis = calendar.timeInMillis
 
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        val endTimeMillis = calendar.timeInMillis
+
         val values = ContentValues().apply {
             put(CalendarContract.Events.CALENDAR_ID, calendarId) // 필수 필드
             put(CalendarContract.Events.TITLE, "🍽️ $restaurantName")
             put(CalendarContract.Events.DESCRIPTION, memo)
             put(CalendarContract.Events.DTSTART, startTimeMillis)
+            put(CalendarContract.Events.DTEND, endTimeMillis)
             put(CalendarContract.Events.ALL_DAY, 1) // 종일 일정 설정
             put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
         }
