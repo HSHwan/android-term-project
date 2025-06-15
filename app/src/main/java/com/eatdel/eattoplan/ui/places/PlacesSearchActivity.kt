@@ -38,7 +38,9 @@ import java.net.URLEncoder
 import android.app.AlertDialog
 import android.widget.DatePicker
 import android.widget.EditText
+import com.eatdel.eattoplan.util.CalendarManager
 import java.util.Calendar
+import java.util.Locale
 
 class PlacesSearchActivity : AppCompatActivity() {
 
@@ -277,6 +279,8 @@ class PlacesSearchActivity : AppCompatActivity() {
             .collection("plans")
             .document(place.place_id)
 
+        val calendarManager = CalendarManager(this)
+
         if (add) {
             // 1) 커스텀 다이얼로그 뷰 inflate
             val dialogView = layoutInflater.inflate(R.layout.dialog_plan, null)
@@ -296,7 +300,7 @@ class PlacesSearchActivity : AppCompatActivity() {
                 .setPositiveButton("저장") { _, _ ->
                     // 4) 유저 입력값 읽어오기
                     val memo = etMemo.text.toString().trim()
-                    val meet_date = "${dp.year}-${dp.month + 1}-${dp.dayOfMonth}"
+                    val meet_date = String.format(Locale.getDefault(), "%d-%02d-%02d", dp.year, dp.month+1, dp.dayOfMonth)
 
                     // 5) Firestore에 저장할 맵 생성
                     val data = mapOf(
@@ -310,6 +314,10 @@ class PlacesSearchActivity : AppCompatActivity() {
                     // 6) DB에 set, UI 업데이트
                     plansRef.set(data)
                         .addOnSuccessListener {
+                            val calendarCreated = calendarManager.createRestaurantEvent(place.name, memo, meet_date)
+                            if (calendarCreated) {
+                                Toast.makeText(this, "일정이 생성되었습니다", Toast.LENGTH_SHORT).show()
+                            }
                             Toast.makeText(this, "계획에 추가되었습니다", Toast.LENGTH_SHORT).show()
                             savedIds.add(place.place_id)
                             val idx = adapter.currentItems.indexOf(place)
@@ -326,6 +334,10 @@ class PlacesSearchActivity : AppCompatActivity() {
             // 삭제 로직은 그대로
             plansRef.delete()
                 .addOnSuccessListener {
+                    val calendarDeleted = calendarManager.deleteRestaurantEventByName(place.name)
+                    if (calendarDeleted) {
+                        Toast.makeText(this, "일정이 제거되었습니다",Toast.LENGTH_SHORT).show()
+                    }
                     Toast.makeText(this, "계획에서 제거되었습니다", Toast.LENGTH_SHORT).show()
                     savedIds.remove(place.place_id)
                     val idx = adapter.currentItems.indexOf(place)
