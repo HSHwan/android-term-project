@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.eatdel.eattoplan.util.CalendarManager
 
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val calendarManager = CalendarManager(this)
 
         // 툴바 + 드로어
         setSupportActionBar(binding.toolbar)
@@ -91,13 +93,27 @@ class MainActivity : AppCompatActivity(),
                             .collection("plans")
                             .document(plan.place_id)  // ← plan.place_id 가 실제 문서ID여야 합니다!
                             .delete()
+
                             .addOnSuccessListener {
-                                Toast.makeText(this,
+                                Toast.makeText(
+                                    this,
                                     "${plan.name} 계획이 삭제되었습니다",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                // snapshotListener가 자동 갱신해 줌
+
+                                val calDeleted =
+                                    calendarManager.deleteRestaurantEventByName(plan.name)
+                                if (calDeleted) {
+                                    Toast.makeText(
+                                        this,
+                                        "일정이 제거되었습니다",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
+                                    //계획 삭제 오류
+                                }
                             }
+
                             .addOnFailureListener { e ->
                                 Toast.makeText(this,
                                     "삭제 실패: ${e.message}",
