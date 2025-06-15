@@ -20,8 +20,10 @@
         android:title="맛집 검색"
         android:icon="@drawable/ic_place" />
 
-
-
+    <item
+        android:id="@+id/nav_calendar"
+        android:title="캘린더"
+        android:icon="@drawable/ic_calendar" />
 
 
 </menu>
